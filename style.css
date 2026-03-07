@@ -229,7 +229,6 @@ div img {
     padding-bottom: 1rem;
     margin-top: 1rem;
     gap: 1rem;
-    justify-content: center;    /* centering items horizontally */
 }
 
 .char-item {

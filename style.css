@@ -64,10 +64,7 @@ div img {
 
 /* ===== Row 3: smaller circular images ===== */
 .col-3 img {
-    max-width: 120px;   /* smaller size */
-    height: 120px;      /* fix height to make perfect circle */
-    border-radius: 50%; /* circular */
-    object-fit: cover;  /* crop to fit nicely */
+    max-width: 300px;   /* smaller size */
     margin: 0.25rem 0;  /* spacing around images */
 }
 
@@ -187,8 +184,8 @@ div img {
     .col-2 { flex: 0 0 44%; }
 
     /* Row 3: left narrow, right wide */
-    .col-3:first-child { flex: 0 0 20%; order: 1; }
-    .col-3:last-child { flex: 0 0 64%; order: 2; }
+    .col-3:first-child { flex: 0 0 25%; order: 1; }
+    .col-3:last-child { flex: 0 0 63%; order: 2; }
 
     /* Row 4: full width images in one row */
     .col-4 { flex: 0 0 92%; }
@@ -207,10 +204,12 @@ div img {
     }
 
     .char-slide {
+        display: flex;              /* make it a flex container */
+        justify-content: center;    /* center items horizontally */
+        align-items: center;        /* center vertically */
         width: 100%;
         gap: 1rem;
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
         padding-bottom: 1rem;
     }
 
@@ -243,4 +242,22 @@ div img {
 .char-item img {
     border-radius: 50%;          /* make row 6 images circular */
     object-fit: cover;           /* fill circle without distortion */
+}
+
+/* ===== Hover Over Word Displays Image ===== */
+/* container */
+.hover-img {
+    cursor: pointer;
+}
+
+/* hidden image */
+.hover-img img {
+    display: none;
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* show image on hover */
+.hover-img:hover img {
+    display: block;
 }

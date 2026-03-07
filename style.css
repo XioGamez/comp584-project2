@@ -40,7 +40,6 @@ a { color: #2772B0; }          /* consistent link color */
     padding: 0.5rem;
     display: flex;             /* flex container for centering content */
     flex-direction: column;    /* stack content vertically */
-    align-items: center;       /* center content horizontally */
 }
 
 /* ===== Background colors for visualization ===== */
@@ -55,8 +54,21 @@ a { color: #2772B0; }          /* consistent link color */
 div img {
     width: 100%;
     max-width: 225px;  /* images scale but do not exceed this size */
-    display: block;    /* block ensures proper spacing inside flex */
     border-radius: 0;  /* only row 6 images will be circular */
+
+    /* centers images */
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+/* ===== Row 3: smaller circular images ===== */
+.col-3 img {
+    max-width: 120px;   /* smaller size */
+    height: 120px;      /* fix height to make perfect circle */
+    border-radius: 50%; /* circular */
+    object-fit: cover;  /* crop to fit nicely */
+    margin: 0.25rem 0;  /* spacing around images */
 }
 
 /* ===== Row 4: Images in one line ===== */

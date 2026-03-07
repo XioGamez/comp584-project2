@@ -226,7 +226,6 @@ div img {
     display: flex;
     flex-wrap: nowrap;           /* keep in a single row */
     overflow-x: auto;            /* allow horizontal scrolling */
-    -webkit-overflow-scrolling: touch;
     padding-bottom: 1rem;
     margin-top: 1rem;
     gap: 1rem;

@@ -1,89 +1,236 @@
-/* Border box declaration 
-https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
-html {
-  box-sizing: border-box;
-}
-/* inherit border-box on all elements in the universe and before and after
- */
-*, 
-*:before, 
-*:after {
-  box-sizing: inherit;
-}
+/* ===== Box sizing ===== */
+/* Ensures padding and borders are included in the element's total width and height */
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
 
-h1,h3 {
-    text-align: center;
-}
-
+/* ===== Body styling ===== */
 body {
-	font-family: Arial, Geneva, sans-serif;
+    font-family: Arial, Geneva, sans-serif; /* clean, readable font */
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* light gray background for contrast */
 }
-a {
-	color: #2772B0;
-}
+
+/* ===== Headings and links ===== */
+h1, h3 { text-align: center; } /* center all section headers */
+a { color: #2772B0; }          /* consistent link color */
+
+/* ===== Wrapper ===== */
+/* Centers the content and adds white background with padding */
 .wrapper {
-	width: 97%;
-	max-width: 1200px;
-	margin: 0 auto;
-	float: none;
-	background-color: #fff;
+    width: 97%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 1rem 0;
 }
 
-div img {
-	width: 100%;
-	max-width: 225px;
-}
-
-/* grid system -- mobile first! */
-/* flex contatiner */
-
+/* ===== Grid system (mobile first) ===== */
+/* All rows use flexbox and wrap items */
 .row {
-	display: flex;
-	flex-flow: row wrap;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem; /* spacing between rows */
 }
 
-/* attribute selector to give some margin between columns and apply styles to flex items */
-
+/* All columns stack vertically by default for mobile */
 [class*="col-"] {
-	margin-left: 4%;
-	flex: 0 0 92%;
+    margin-left: 4%;           /* spacing between columns */
+    flex: 0 0 92%;             /* almost full width on mobile */
+    padding: 0.5rem;
+    display: flex;             /* flex container for centering content */
+    flex-direction: column;    /* stack content vertically */
+    align-items: center;       /* center content horizontally */
 }
 
-/* Add background colors to see how much space each column is taking */
+/* ===== Background colors for visualization ===== */
+.col-1 { background-color: #A3CDD9; }
+.col-2 { background-color: #FFFCE6; }
+.col-3 { background-color: #D8E8E4; }
+.col-4 { background-color: #FFD3B6; }
+.col-5 { background-color: #FFAAA5; }
+.col-6 { background-color: #D5AAFF; }
 
-.col-1 {
-	background-color: #A3CDD9;
+/* ===== Default Images ===== */
+div img {
+    width: 100%;
+    max-width: 225px;  /* images scale but do not exceed this size */
+    display: block;    /* block ensures proper spacing inside flex */
+    border-radius: 0;  /* only row 6 images will be circular */
 }
 
-.col-2 {
-	background-color: #FFFCE6;
+/* ===== Row 4: Images in one line ===== */
+.col-4 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;        /* allow wrapping if needed */
+    justify-content: center;
+    gap: 1rem;              /* spacing between images */
 }
 
-/* Tablet Landscape Screen Sizes */
-@media only screen and (min-width: 480px)  {
-	
-  .col-1,
-  .col-2 {
-		flex: 0 0 44%;
-	}
-  
-  
+/* ===== Mobile (max-width: 479px) ===== */
+/* Stack all boxes vertically */
+@media only screen and (max-width: 479px) {
+    [class*="col-"] {
+        flex: 0 0 100%;   /* full width */
+        margin-left: 0;   /* remove left margin for single column */
+        margin-bottom: 1rem; /* spacing between stacked boxes */
+    }
 
+    /* Row 5 remains stacked naturally on mobile */
+    .row .col-5:nth-child(1),
+    .row .col-5:nth-child(2),
+    .row .col-5:nth-child(3) {
+        order: initial;
+    }
 
+    /* Row 6: scrollable character slides, full width */
+    .col-6 {
+        flex: 0 0 100%;
+        margin-left: 0;
+        padding: 0.5rem;
+        overflow: hidden;
+    }
 
+    .char-slide {
+        display: flex;
+        flex-wrap: nowrap;      /* keep items in one row */
+        overflow-x: auto;       /* allow horizontal scroll */
+        -webkit-overflow-scrolling: touch;
+        gap: 0.5rem;            /* smaller gap to fit screen */
+        width: 100%;
+        padding-bottom: 1rem;
+        box-sizing: border-box; /* include padding in width */
+    }
+
+    .char-item {
+        flex: 0 0 auto;         /* fixed width items */
+    }
+
+    .char-item img {
+        width: 120px;           /* slightly smaller for mobile */
+        height: 120px;
+    }
 }
-/* Desktop screen Sizes */
-@media only screen and (min-width: 768px) {
-  
-  
- 	.col-1 {
-		flex: 0 0 20%;
-	}
-  
-  
-  
-	.col-2 {
-		flex: 0 0 44%;
-	}
 
+/* ===== Tablet (480px – 1024px) ===== */
+/* Adjust layout for larger mobile / small desktop screens */
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
+
+    /* Row 1 & 2: two columns per row */
+    .col-1, .col-2 { flex: 0 0 48%; margin-left: 2%; }
+
+    /* Row 3: stack vertically on mid screens */
+    .col-3:first-child,
+    .col-3:last-child {
+        flex: 0 0 100%;
+        order: initial;
+        margin-left: 0;
+        margin-bottom: 1rem;
+    }
+
+    /* Row 5: wide column on top, narrow columns side by side */
+    .row .col-5:nth-child(2) {
+        order: 1;
+        flex: 0 0 100%;
+        margin-left: 0;
+        margin-bottom: 1rem;
+    }
+    .row .col-5:nth-child(1),
+    .row .col-5:nth-child(3) {
+        order: 2;
+        flex: 0 0 48%;
+        margin-left: 2%;
+    }
+
+    /* Row 6: scrollable slides, fit container width */
+    .col-6 {
+        flex: 0 0 100%;
+        margin-left: 0;
+        padding: 0.5rem;
+        overflow: hidden;
+    }
+
+    .char-slide {
+        width: 100%;
+        gap: 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1rem;
+    }
+
+    .char-item img {
+        width: 130px;  /* medium size for tablet */
+        height: 130px;
+    }
+}
+
+/* ===== Desktop (min-width: 1025px) ===== */
+@media only screen and (min-width: 1025px) {
+
+    /* Row 1: 4 boxes in a row */
+    .col-1 { flex: 0 0 20%; }
+
+    /* Row 2: 2 boxes side by side */
+    .col-2 { flex: 0 0 44%; }
+
+    /* Row 3: left narrow, right wide */
+    .col-3:first-child { flex: 0 0 20%; order: 1; }
+    .col-3:last-child { flex: 0 0 64%; order: 2; }
+
+    /* Row 4: full width images in one row */
+    .col-4 { flex: 0 0 92%; }
+
+    /* Row 5: 1-2-1 layout */
+    .col-5:nth-child(1) { flex: 0 0 20%; order: 1; }
+    .col-5:nth-child(2) { flex: 0 0 45%; order: 2; }
+    .col-5:nth-child(3) { flex: 0 0 20%; order: 3; }
+
+    /* Row 6: scrollable slides, circular images */
+    .col-6 {
+        flex: 0 0 100%;
+        margin-left: 0;
+        padding: 0.5rem;
+        overflow: hidden;
+    }
+
+    .char-slide {
+        width: 100%;
+        gap: 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1rem;
+    }
+
+    .char-item img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* ===== Row 6: Character slides general styling ===== */
+/* Applies to all screens */
+.char-slide {
+    display: flex;
+    flex-wrap: nowrap;           /* keep in a single row */
+    overflow-x: auto;            /* allow horizontal scrolling */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    gap: 1rem;
+    justify-content: center;    /* centering items horizontally */
+}
+
+.char-item {
+    flex: 0 0 auto;              /* fixed-width items */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== Circular images for row 6 ===== */
+.char-item img {
+    border-radius: 50%;          /* make row 6 images circular */
+    object-fit: cover;           /* fill circle without distortion */
 }
